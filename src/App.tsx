@@ -1,6 +1,9 @@
 import { DetailsList, Stack, Text, TextField } from "@fluentui/react";
-import { PrimaryButton } from "@fluentui/react/lib/Button";
-import { FormEvent, useState } from "react";
+import { CommandButton, PrimaryButton } from "@fluentui/react/lib/Button";
+import React, { FormEvent, useState } from "react";
+import { Dialog, DialogType, DialogFooter } from "@fluentui/react/lib/Dialog";
+import { useId, useBoolean } from "@fluentui/react-hooks";
+import Form from "./Form";
 
 const App = () => {
   const [users, setUsers] = useState<
@@ -11,7 +14,7 @@ const App = () => {
       marks: string;
     }[]
   >([]);
-
+  const [hideDialog, setHideDialog] = useState(true);
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -66,12 +69,31 @@ const App = () => {
       maxWidth: 200,
       isResizable: true,
     },
+    {
+      key: "actions",
+      name: "Actions",
+      fieldName: "",
+      minWidth: 50,
+      maxWidth: 50,
+      onRender: (item: any, index: any) => (
+        <CommandButton onClick={() => setHideDialog(false)} text="Edit" />
+      ),
+    },
   ];
 
   return (
     <Stack>
       <Stack>
-        <Text as="p" block>
+        <Text
+          as="h6"
+          block
+          variant="xLarge"
+          style={{
+            borderBottom: "1px solid #e5e5e5",
+            marginBottom: "2rem",
+            padding: "0 0 1rem",
+          }}
+        >
           Please fill out your basic form
         </Text>
         <Stack.Item grow>
@@ -107,7 +129,16 @@ const App = () => {
         <PrimaryButton onClick={log123}>Add</PrimaryButton>
       </Stack>
 
-      <Text as="p" block>
+      <Text
+        as="h6"
+        block
+        variant="xLarge"
+        style={{
+          borderBottom: "1px solid #e5e5e5",
+          marginBottom: "2rem",
+          padding: "0 0 1rem",
+        }}
+      >
         List of values
       </Text>
 
@@ -119,6 +150,18 @@ const App = () => {
           // onRenderItemColumn={renderItemColumn}
         />
       </Stack>
+
+      <Dialog
+        hidden={hideDialog}
+        onDismiss={() => setHideDialog(true)}
+        // dialogContentProps={dialogContentProps}
+        // modalProps={modalProps}
+      >
+        <Form />
+        {/* <DialogFooter>
+          <PrimaryButton onClick={() => setHideDialog(true)} text="Save" />
+        </DialogFooter> */}
+      </Dialog>
     </Stack>
   );
 };

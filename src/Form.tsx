@@ -3,10 +3,6 @@ import { PrimaryButton, Text, TextField } from "@fluentui/react";
 const Form = () => {
   return (
     <>
-      <Text as="h1" block variant="xxLarge">
-        Form
-      </Text>
-
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -18,7 +14,7 @@ const Form = () => {
         }}
       >
         <Text
-          as="h2"
+          as="h4"
           block
           variant="xLarge"
           style={{
@@ -27,11 +23,7 @@ const Form = () => {
             padding: "0 0 1rem",
           }}
         >
-          Contact Information
-        </Text>
-
-        <Text as="p" block>
-          Please fill out your contact information
+          Edit Information
         </Text>
 
         <TextField label="Name" name="name" required />
@@ -39,7 +31,7 @@ const Form = () => {
         <TextField label="Class" name="class" required />
         <TextField label="Marks" name="marks" required />
 
-        <PrimaryButton type="submit">Primary Button</PrimaryButton>
+        <PrimaryButton type="submit">Save</PrimaryButton>
       </form>
     </>
   );
